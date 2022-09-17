@@ -1,72 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import PropTypes from "prop-types";
 import { useLocalStorage } from "react-use";
+import Blog from "./components/Blog";
 import BlogForm from "./components/BlogForm";
 import LoginForm from "./components/LoginForm";
 import Togglable from "./components/Togglable";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
-
-const Blog = ({ blog, handleLike, handleRemove, user }) => {
-  const [showDetails, setShowDetails] = useState(false);
-
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: "dotted",
-    borderWidth: 2,
-    margin: 10,
-    padding: 10,
-    borderRadius: 20,
-  };
-
-  return (
-    <div style={blogStyle}>
-      <p>
-        <strong>{blog.title}</strong> <em>(created by {blog.user.username})</em>
-      </p>
-      {showDetails && (
-        <>
-          {blog.url && (
-            <p
-              style={{
-                textDecoration: "underline",
-              }}
-            >
-              {blog.url}
-            </p>
-          )}
-
-          {blog.author && <p> Written by {blog.author}</p>}
-          <p
-            style={{
-              color: "hsl(9, 80%, 61%)",
-            }}
-          >
-            {blog.likes} likes{" "}
-            <button onClick={() => handleLike(blog)}>like ❤️</button>
-          </p>
-          {user.username === blog.user.username && (
-            <button onClick={() => handleRemove(blog)}>delete ⚠️</button>
-          )}
-        </>
-      )}
-      <div>
-        <button onClick={() => setShowDetails((state) => !state)}>
-          {showDetails ? "hide" : "show"}
-        </button>
-      </div>
-    </div>
-  );
-};
-
-Blog.propTypes = {
-  blog: PropTypes.object.isRequired,
-  handleLike: PropTypes.func.isRequired,
-  handleRemove: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-};
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);

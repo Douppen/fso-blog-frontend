@@ -12,6 +12,7 @@ const BlogForm = ({ handleBlogCreation }) => {
     <div>
       <h2>create new</h2>
       <form
+        className="blog-form"
         onSubmit={(e) => {
           e.preventDefault();
           handleBlogCreation(blog).then((status) => {
@@ -25,6 +26,7 @@ const BlogForm = ({ handleBlogCreation }) => {
           title:
           <input
             type="text"
+            placeholder="title"
             value={blog.title}
             name="title"
             onChange={(e) => setBlog({ ...blog, title: e.target.value })}
@@ -34,6 +36,7 @@ const BlogForm = ({ handleBlogCreation }) => {
           author:
           <input
             type="text"
+            placeholder="author"
             value={blog.author}
             name="author"
             onChange={(e) => setBlog({ ...blog, author: e.target.value })}
@@ -43,6 +46,7 @@ const BlogForm = ({ handleBlogCreation }) => {
           url:
           <input
             type="text"
+            placeholder="url"
             value={blog.url}
             name="url"
             onChange={(e) => setBlog({ ...blog, url: e.target.value })}
@@ -52,6 +56,7 @@ const BlogForm = ({ handleBlogCreation }) => {
           likes:
           <input
             type="number"
+            placeholder="likes"
             value={blog.likes}
             name="likes"
             onChange={(e) => setBlog({ ...blog, likes: e.target.value })}
