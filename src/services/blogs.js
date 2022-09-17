@@ -22,7 +22,23 @@ const blogService = () => {
       .then((response) => response.data);
   };
 
-  return { getAll, create, update };
+  const like = async (blog) => {
+    let newBlog = {
+      ...blog,
+      likes: blog.likes + 1,
+    };
+
+    newBlog.user = newBlog.user.id;
+
+    const response = await axios.put(`${baseUrl}/${blog.id}`, newBlog, config);
+    return response.data;
+  };
+
+  const remove = async (id) => {
+    await axios.delete(`${baseUrl}/${id}`, config);
+  };
+
+  return { getAll, create, update, like, remove };
 };
 
 export default blogService;
