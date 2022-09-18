@@ -6,6 +6,7 @@ const LoginForm = ({ handleLogin }) => {
 
   return (
     <div>
+      <h2>Log in to application</h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -22,6 +23,7 @@ const LoginForm = ({ handleLogin }) => {
           <input
             type="text"
             name="username"
+            id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -31,11 +33,14 @@ const LoginForm = ({ handleLogin }) => {
           <input
             type="password"
             name="password"
+            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">log in</button>
+        <button id="login-btn" type="submit">
+          log in
+        </button>
       </form>
     </div>
   );
