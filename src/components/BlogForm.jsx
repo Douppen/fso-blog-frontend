@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { createBlog } from "../reducers/blogReducer";
 
-const BlogForm = ({ handleBlogCreation }) => {
+const BlogForm = ({ toggleRef }) => {
   const [blog, setBlog] = useState({
     title: "",
     author: "",
@@ -8,9 +11,29 @@ const BlogForm = ({ handleBlogCreation }) => {
     likes: 0,
   });
 
+  const dispatch = useDispatch();
+
+  const handleBlogCreation = async (blog) => {
+    try {
+      dispatch(createBlog(blog));
+      toast.success("Blog created successfully!");
+      toggleRef.current.toggleVisibility();
+      return "success";
+    } catch (e) {
+      const errorMessage = e.response.data.error;
+      if (errorMessage === "title is required") {
+        toast.error("Title is required");
+      } else {
+        toast.error(`Something went wrong: ${errorMessage}`);
+      }
+
+      return "error";
+    }
+  };
+
   return (
     <div>
-      <h2>create new</h2>
+      <h3>create new</h3>
       <form
         className="blog-form"
         onSubmit={(e) => {

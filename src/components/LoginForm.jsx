@@ -1,8 +1,15 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 const LoginForm = ({ handleLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const [isLogged, setIsLogged] = useState(false);
+
+  if (isLogged) {
+    return <Navigate replace to="/" />;
+  }
 
   return (
     <div>
@@ -10,10 +17,9 @@ const LoginForm = ({ handleLogin }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          handleLogin({ username, password }).then((status) => {
-            if (status === "success") {
-              setUsername("");
-              setPassword("");
+          handleLogin({ username, password }).then((res) => {
+            if (res === "success") {
+              setIsLogged(true);
             }
           });
         }}
