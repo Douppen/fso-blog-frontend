@@ -5,7 +5,6 @@ import { likeBlog, removeBlog } from "../reducers/blogReducer";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Comments from "./Comments";
-import fetchUsers from "../reducers/userReducer";
 
 const Blog = ({ blog, user }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -20,7 +19,6 @@ const Blog = ({ blog, user }) => {
   const handleRemove = (blog) => {
     if (window.confirm(`Sure you want to remove ${blog.title}?`)) {
       dispatch(removeBlog(blog.id));
-      dispatch(fetchUsers());
     }
   };
 

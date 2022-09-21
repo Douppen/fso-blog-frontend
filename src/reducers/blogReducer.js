@@ -75,6 +75,7 @@ export const removeBlog = createAsyncThunk(
   async (id, thunkAPI) => {
     await blogService().remove(id);
     thunkAPI.dispatch(deleteBlogAction(id));
+    thunkAPI.dispatch(fetchUsers());
   }
 );
 
