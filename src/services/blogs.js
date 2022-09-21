@@ -23,9 +23,7 @@ const blogService = () => {
   };
 
   const comment = (id, comment) => {
-    return axios
-      .post(`${baseUrl}/${id}/comments`, { comment }, config)
-      .then(() => comment);
+    return axios.post(`${baseUrl}/${id}/comments`, { comment }, config);
   };
 
   const like = async (blog) => {

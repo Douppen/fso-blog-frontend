@@ -8,12 +8,16 @@ const BlogForm = ({ toggleRef }) => {
     title: "",
     author: "",
     url: "",
-    likes: 0,
   });
 
   const dispatch = useDispatch();
 
   const handleBlogCreation = async (blog) => {
+    if (blog.title.length === 0) {
+      toast.error("Please enter a title");
+      return;
+    }
+
     try {
       dispatch(createBlog(blog));
       toast.success("Blog created successfully!");
@@ -32,24 +36,24 @@ const BlogForm = ({ toggleRef }) => {
   };
 
   return (
-    <div>
-      <h3>create new</h3>
+    <div className="flex flex-col items-center rounded-lg p-4 border-4 border-brown">
+      <h3 className="text-brown text-xl mb-4 font-semibold">Share a blog</h3>
       <form
-        className="blog-form"
+        className="flex flex-col space-y-2"
         onSubmit={(e) => {
           e.preventDefault();
           handleBlogCreation(blog).then((status) => {
             if (status === "success") {
-              setBlog({ title: "", author: "", url: "", likes: 0 });
+              setBlog({ title: "", author: "", url: "" });
             }
           });
         }}
       >
         <div>
-          title:
+          <p>title</p>
           <input
+            className="border-2 border-brown m-2 rounded-lg"
             type="text"
-            placeholder="title"
             id="title"
             value={blog.title}
             name="title"
@@ -57,10 +61,10 @@ const BlogForm = ({ toggleRef }) => {
           />
         </div>
         <div>
-          author:
+          <p>author</p>
           <input
             type="text"
-            placeholder="author"
+            className="border-2 border-brown m-2 rounded-lg"
             id="author"
             value={blog.author}
             name="author"
@@ -68,29 +72,18 @@ const BlogForm = ({ toggleRef }) => {
           />
         </div>
         <div>
-          url:
+          <p>url</p>
           <input
             type="text"
-            placeholder="url"
+            className="border-2 border-brown m-2 rounded-lg"
             id="url"
             value={blog.url}
             name="url"
             onChange={(e) => setBlog({ ...blog, url: e.target.value })}
           />
         </div>
-        <div>
-          likes:
-          <input
-            type="number"
-            placeholder="likes"
-            id="likes"
-            value={blog.likes}
-            name="likes"
-            onChange={(e) => setBlog({ ...blog, likes: e.target.value })}
-          />
-        </div>
-        <button id="create-blog-btn" type="submit">
-          create
+        <button className="bg-beige mt-4" id="create-blog-btn" type="submit">
+          share
         </button>
       </form>
     </div>

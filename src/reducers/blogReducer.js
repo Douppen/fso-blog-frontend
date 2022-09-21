@@ -20,11 +20,8 @@ const blogSlice = createSlice({
     setBlogs: (state, action) => {
       return action.payload;
     },
-    commentOnBlog: (state, action) => {
+    commentOnBlogAction: (state, action) => {
       const { id, comment } = action.payload;
-      blogService()
-        .comment(id, comment)
-        .then(() => {});
       state.map((blog) => {
         blog.id === id ? blog.comments.push(comment) : blog;
       });
@@ -37,7 +34,7 @@ export const {
   createBlogAction,
   deleteBlogAction,
   likeBlogAction,
-  commentOnBlog,
+  commentOnBlogAction,
 } = blogSlice.actions;
 
 export const fetchBlogs = createAsyncThunk(
@@ -45,6 +42,14 @@ export const fetchBlogs = createAsyncThunk(
   async (_, thunkAPI) => {
     const blogs = await blogService().getAll();
     thunkAPI.dispatch(setBlogs(blogs));
+  }
+);
+
+export const commentOnBlog = createAsyncThunk(
+  "blogs/commentOnBlog",
+  async ({ comment, id }, thunkAPI) => {
+    blogService().comment(id, comment);
+    thunkAPI.dispatch(commentOnBlogAction({ id, comment }));
   }
 );
 

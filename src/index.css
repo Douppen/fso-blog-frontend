@@ -3,9 +3,31 @@
 @tailwind utilities;
 
 body {
-  @apply bg-cream;
+  @apply bg-cream max-w-3xl mx-auto p-8 text-brown;
 }
 
 button {
-  @apply py-1 px-2 rounded transition-all;
+  @apply font-semibold py-1 px-2 rounded bg-beige text-brown my-1 hover:scale-110 active:scale-90 duration-150 transition-all;
+}
+
+input {
+  @apply py-1 px-2 rounded-lg bg-cream text-brown transition-all;
+}
+
+.dont-break-out {
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
