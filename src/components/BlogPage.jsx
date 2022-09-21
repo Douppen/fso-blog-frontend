@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useMatch } from "react-router-dom";
 import { likeBlog, removeBlog } from "../reducers/blogReducer";
 import Comments from "./Comments";
+import fetchUsers from "../reducers/userReducer";
 
 const BlogPage = ({ user }) => {
   const match = useMatch("/blogs/:id");
@@ -29,6 +30,7 @@ const BlogPage = ({ user }) => {
   const handleRemove = (blog) => {
     if (window.confirm(`Sure you want to remove ${blog.title}?`)) {
       dispatch(removeBlog(blog.id));
+      dispatch(fetchUsers());
       setHasBeenRemoved(true);
     }
   };

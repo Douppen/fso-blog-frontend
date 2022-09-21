@@ -3,6 +3,7 @@ import { Link, useMatch } from "react-router-dom";
 import { faker } from "@faker-js/faker";
 import userService from "../services/users";
 import toast from "react-hot-toast";
+import { useRef } from "react";
 
 const UserPage = ({ user, logOut }) => {
   const match = useMatch("/users/:id");
@@ -11,16 +12,13 @@ const UserPage = ({ user, logOut }) => {
     ? users.find((user) => user.id === match.params.id)
     : null;
 
-  if (!matchedUser) {
-    return (
-      <div>
-        <h2>Users</h2>
-        <p>Loading...</p>
-      </div>
-    );
-  }
+  const randomString = useRef(
+    faker.word.adverb() + " " + faker.word.adjective()
+  );
 
-  const randomString = faker.word.adverb() + " " + faker.word.adjective();
+  if (!matchedUser) {
+    return <div></div>;
+  }
 
   const handleDelete = (user) => {
     if (window.confirm(`Sure you want to delete your profile?`)) {
@@ -64,7 +62,7 @@ const UserPage = ({ user, logOut }) => {
       <h2 className="font-medium text-beige text-2xl mb-4">
         {matchedUser.name}
         <span className="font-normal"> is </span>
-        <em className="font-normal">{randomString}</em>
+        <em className="font-normal">{randomString.current}</em>
       </h2>
       <p>
         <strong>Username: </strong>

@@ -5,12 +5,7 @@ const UsersList = ({ loggedInUser }) => {
   const users = useSelector((state) => state.users);
 
   if (users.length === 0) {
-    return (
-      <div>
-        <h2>Users</h2>
-        <p>You must be authenticated to view users</p>
-      </div>
-    );
+    return <div></div>;
   }
 
   return (
