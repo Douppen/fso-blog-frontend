@@ -21,6 +21,11 @@ const BlogForm = ({ toggleRef }) => {
     try {
       dispatch(createBlog(blog));
       toast.success("Blog created successfully!");
+      setBlog({
+        title: "",
+        author: "",
+        url: "",
+      });
       toggleRef.current.toggleVisibility();
       return "success";
     } catch (e) {
